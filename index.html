@@ -118,24 +118,25 @@
       }
       .flashcard {
         width: min(95vw, 320px);
-        height: min(85vh, 420px);
+        height: auto;
         padding: 0.75rem;
       }
       .flashcard-front {
         font-size: clamp(0.9rem, 4.5vw, 1.1rem);
-        max-height: 20%;
+        max-height: none;
       }
       .flashcard-back .joke-setup {
         font-size: clamp(0.8rem, 4vw, 1rem);
-        max-height: 20%;
+        max-height: none;
       }
       .flashcard-back .punchline {
         font-size: clamp(0.9rem, 4.5vw, 1.1rem);
-        max-height: 30%;
+        max-height: none;
       }
       .flashcard-back .grammar-lesson {
         font-size: clamp(0.7rem, 3.5vw, 0.9rem);
-        max-height: 55%;
+        max-height: none;
+        overflow-y: visible;
       }
       .grammar-key {
         font-size: clamp(0.7rem, 3.5vw, 0.9rem);
