@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Teacher Matt's Grammar Dad Jokes - Card 1</title>
-  <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/3917/3917856.png?v=2" />
-  <link rel="alternate icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/128/3917/3917856.ico?v=2" />
+  <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/4492/4492853.png" />
+  <link rel="alternate icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/128/4492/4492853.ico" />
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -175,14 +175,14 @@
       margin: 1rem auto;
       padding: 0.5rem 1rem;
       font-size: 1rem;
-      background-color: #3498db;
+      background-color: #2c3e50;
       color: white;
       border: none;
       border-radius: 5px;
       cursor: pointer;
     }
     .continue-button:hover {
-      background-color: #2980b9;
+      background-color: #34495e;
     }
   </style>
 </head>
@@ -235,7 +235,6 @@
           document.querySelector('.continue-button').style.display = 'block';
         };
         window.speechSynthesis.speak(utterance);
-        // Optionally hide the button after starting
         document.querySelector('.start-button').style.display = 'none';
       } else {
         console.warn('Speech synthesis not supported in this browser.');
@@ -257,6 +256,9 @@
           utterance.lang = 'en-US';
           utterance.onerror = (event) => {
             console.error('Speech synthesis error:', event.error);
+          };
+          utterance.onend = () => {
+            document.querySelector('.continue-button').style.display = 'none';
           };
           window.speechSynthesis.speak(utterance);
         }
