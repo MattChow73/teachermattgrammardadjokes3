@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Teacher Matt's Grammar Dad Jokes - Card 1</title>
+  <title>Teacher Matt's Dad Jokes</title>
   <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/4492/4492853.png" />
   <link rel="alternate icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/128/4492/4492853.ico" />
   <style>
@@ -20,24 +20,29 @@
       color: #333;
       font-size: clamp(1.2rem, 5vw, 1.5rem);
       font-family: "Comic Sans MS", Arial, sans-serif;
+      margin: 0.5rem 0;
     }
     .flashcard {
       background: white;
       border: 2px solid #ccc;
       border-radius: 12px;
-      width: min(90vw, 350px);
-      height: min(85vh, 450px);
+      width: min(95vw, 340px);
+      height: auto;
+      min-height: 300px;
       margin: 1rem auto;
       padding: 1rem;
       box-shadow: 0 4px 10px rgba(0,0,0,0.15);
       cursor: pointer;
       text-align: center;
-      display: flex;
+      display: none;
       flex-direction: column;
       justify-content: center;
       position: relative;
       box-sizing: border-box;
       touch-action: manipulation;
+    }
+    .flashcard.active {
+      display: flex;
     }
     .flashcard-front, .flashcard-back {
       display: none;
@@ -48,25 +53,23 @@
     .flashcard-front {
       font-weight: bold;
       color: #2c3e50;
-      font-size: clamp(1rem, 4vw, 1.2rem);
-      max-height: 30%;
-      overflow: hidden;
+      font-size: clamp(1rem, 4.5vw, 1.25rem);
+      padding: 0.5rem;
       overflow-wrap: break-word;
     }
     .flashcard-back .joke-setup {
-      font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+      font-size: clamp(0.9rem, 4vw, 1.1rem);
       color: #2c3e50;
       margin-bottom: 0.5rem;
-      max-height: 20%;
-      overflow: hidden;
+      padding: 0.5rem;
       overflow-wrap: break-word;
     }
     .flashcard-back .punchline {
-      font-size: clamp(1rem, 4vw, 1.2rem);
+      font-size: clamp(1rem, 4.5vw, 1.25rem);
       font-weight: bold;
+      color: #2c3e50;
       margin-bottom: 0.5rem;
-      max-height: 30%;
-      overflow: hidden;
+      padding: 0.5rem;
       overflow-wrap: break-word;
     }
     .flashcard-back hr {
@@ -74,11 +77,10 @@
       margin: 0.5rem 0;
     }
     .flashcard-back .grammar-lesson {
-      font-size: clamp(0.8rem, 3vw, 1rem);
+      font-size: clamp(0.8rem, 3.5vw, 1rem);
       color: #34495e;
-      max-height: 70%;
-      overflow-y: auto;
-      padding-right: 0.5rem;
+      padding: 0.5rem;
+      overflow-y: visible;
     }
     .grammar-noun { color: #00008B; font-weight: bold; }
     .grammar-verb { color: #FF0000; font-weight: bold; }
@@ -89,11 +91,11 @@
     .grammar-conjunction { color: #4A4A4A; }
     .grammar-pronoun { color: #4682B4; }
     .grammar-key {
-      font-size: clamp(0.8rem, 3vw, 1rem);
+      font-size: clamp(0.8rem, 3.5vw, 1rem);
       color: #7f8c8d;
       text-align: center;
       margin: 1rem auto;
-      width: min(90vw, 350px);
+      width: min(95vw, 340px);
       border-top: 1px solid #ccc;
       padding-top: 0.5rem;
     }
@@ -104,7 +106,7 @@
     .nav-icon {
       width: clamp(2rem, 8vw, 2.5rem);
       height: clamp(2rem, 8vw, 2.5rem);
-      margin: 0 0.5rem;
+      margin: 0 0.75rem;
       vertical-align: middle;
       touch-action: manipulation;
     }
@@ -112,31 +114,51 @@
       opacity: 0.5;
       pointer-events: none;
     }
+    .speech-message {
+      text-align: center;
+      color: #e74c3c;
+      font-size: clamp(0.8rem, 3.5vw, 1rem);
+      margin: 0.5rem auto;
+      width: min(95vw, 340px);
+    }
+    .start-button, .continue-button {
+      display: block;
+      margin: 0.75rem auto;
+      padding: 0.5rem 1.5rem;
+      font-size: clamp(0.9rem, 4vw, 1.1rem);
+      background-color: #2c3e50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+    .continue-button {
+      display: none;
+    }
+    .start-button:hover, .continue-button:hover {
+      background-color: #34495e;
+    }
     @media (max-width: 768px) {
       body {
         padding: 0.5rem;
       }
       .flashcard {
         width: min(95vw, 320px);
-        height: auto;
+        min-height: 280px;
         padding: 0.75rem;
       }
       .flashcard-front {
         font-size: clamp(0.9rem, 4.5vw, 1.1rem);
-        max-height: none;
       }
       .flashcard-back .joke-setup {
         font-size: clamp(0.8rem, 4vw, 1rem);
-        max-height: none;
       }
       .flashcard-back .punchline {
         font-size: clamp(0.9rem, 4.5vw, 1.1rem);
-        max-height: none;
       }
       .flashcard-back .grammar-lesson {
         font-size: clamp(0.7rem, 3.5vw, 0.9rem);
-        max-height: none;
-        overflow-y: visible;
       }
       .grammar-key {
         font-size: clamp(0.7rem, 3.5vw, 0.9rem);
@@ -146,69 +168,108 @@
         width: clamp(1.8rem, 7vw, 2.2rem);
         height: clamp(1.8rem, 7vw, 2.2rem);
       }
+      .start-button, .continue-button {
+        padding: 0.5rem 1.25rem;
+        font-size: clamp(0.8rem, 4vw, 1rem);
+      }
     }
     .flashcard:focus {
       outline: 2px solid #2c3e50;
       outline-offset: 2px;
     }
-    .speech-message {
-      text-align: center;
-      color: #e74c3c;
-      font-size: 1rem;
-      margin-bottom: 0.5rem;
-    }
-    .start-button {
-      display: block;
-      margin: 1rem auto;
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      background-color: #2c3e50;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .start-button:hover {
-      background-color: #34495e;
-    }
-    .continue-button {
-      display: none;
-      margin: 1rem auto;
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      background-color: #2c3e50;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .continue-button:hover {
-      background-color: #34495e;
-    }
   </style>
 </head>
 <body>
-  <h1>Teacher Matt's Grammar Dad Jokes</h1>
+  <h1>Teacher Matt's Dad Jokes</h1>
   <button class="start-button" onclick="startJoke()">Start Joke</button>
-  <button class="continue-button" onclick="toggleCard(document.querySelector('.flashcard'))">Continue</button>
-  <div class="flashcard" role="button" aria-expanded="false" aria-label="Interactive grammar joke flashcard" tabindex="0" onclick="toggleCard(this)" onkeydown="handleKeydown(event)" ontouchstart="toggleCard(this)">
+  <button class="continue-button" onclick="toggleCard(document.querySelector('.flashcard.active'))">Continue</button>
+  <div class="flashcard active" role="button" aria-expanded="false" aria-label="Interactive dad joke flashcard 1" tabindex="0" onclick="toggleCard(this)" onkeydown="handleKeydown(event)" ontouchstart="toggleCard(this)">
     <div class="flashcard-front active">
-      "Why did <span class="grammar-article">the</span> <span class="grammar-noun">scarecrow</span> <span class="grammar-verb">become</span> <span class="grammar-article">a</span> motivational speaker?"
+      Why don’t <span class="grammar-noun">eggs</span> <span class="grammar-verb">tell</span> <span class="grammar-noun">jokes</span>?
     </div>
     <div class="flashcard-back">
-      <div class="joke-setup">"Why did <span class="grammar-article">the</span> <span class="grammar-noun">scarecrow</span> <span class="grammar-verb">become</span> <span class="grammar-article">a</span> motivational speaker?"</div>
-      <div class="punchline">"Because <span class="grammar-pronoun">he</span> was <span class="grammar-adjective">outstanding</span> <span class="grammar-preposition">in</span> <span class="grammar-pronoun">his</span> <span class="grammar-noun">field</span>!"</div>
+      <div class="joke-setup">Why don’t <span class="grammar-noun">eggs</span> <span class="grammar-verb">tell</span> <span class="grammar-noun">jokes</span>?</div>
+      <div class="punchline"><span class="grammar-pronoun">They</span>’d <span class="grammar-verb">crack</span> each <span class="grammar-pronoun">other</span> <span class="grammar-adverb">up</span>!</div>
       <hr>
       <div class="grammar-lesson">
-        <strong>Joke Explanation:</strong> "Outstanding in his field" is a pun, meaning both excellent and literally standing in a field.<br>
+        <strong>Joke Explanation:</strong> The pun is on "crack," meaning both eggs breaking and laughing hard.<br>
         <hr>
         <strong>Grammar Lesson:</strong><br>
-        - "<span class="grammar-article">the/a</span>": <span class="grammar-article">articles</span> introduce <span class="grammar-noun">nouns</span>.<br>
-        - "<span class="grammar-noun">scarecrow/field</span>": <span class="grammar-noun">nouns</span> (subject/object).<br>
-        - "<span class="grammar-verb">become</span>": <span class="grammar-verb">verb</span> (action/state).<br>
-        - "<span class="grammar-pronoun">he/his</span>": <span class="grammar-pronoun">pronouns</span> replace <span class="grammar-noun">nouns</span>.<br>
-        - "<span class="grammar-adjective">outstanding</span>": <span class="grammar-adjective">adjective</span> describes a <span class="grammar-noun">noun</span>.<br>
-        - "<span class="grammar-preposition">in</span>": <span class="grammar-preposition">preposition</span> shows <span class="grammar-noun">noun</span> relationships.
+        - "<span class="grammar-pronoun">they/other</span>": <span class="grammar-pronoun">pronouns</span> replace <span class="grammar-noun">nouns</span>.<br>
+        - "<span class="grammar-verb">crack</span>": <span class="grammar-verb">verb</span> (action).<br>
+        - "<span class="grammar-adverb">up</span>": <span class="grammar-adverb">adverb</span> modifies a <span class="grammar-verb">verb</span>.
+      </div>
+    </div>
+  </div>
+  <div class="flashcard" role="button" aria-expanded="false" aria-label="Interactive dad joke flashcard 2" tabindex="0" onclick="toggleCard(this)" onkeydown="handleKeydown(event)" ontouchstart="toggleCard(this)">
+    <div class="flashcard-front active">
+      Why did <span class="grammar-article">the</span> <span class="grammar-noun">tomato</span> <span class="grammar-verb">turn</span> red?
+    </div>
+    <div class="flashcard-back">
+      <div class="joke-setup">Why did <span class="grammar-article">the</span> <span class="grammar-noun">tomato</span> <span class="grammar-verb">turn</span> red?</div>
+      <div class="punchline">Because <span class="grammar-pronoun">it</span> <span class="grammar-verb">saw</span> <span class="grammar-article">the</span> <span class="grammar-noun">salad</span> <span class="grammar-noun">dressing</span>!</div>
+      <hr>
+      <div class="grammar-lesson">
+        <strong>Joke Explanation:</strong> The pun is on "dressing," meaning both salad dressing and getting dressed, implying embarrassment.<br>
+        <hr>
+        <strong>Grammar Lesson:</strong><br>
+        - "<span class="grammar-pronoun">it</span>": <span class="grammar-pronoun">pronoun</span> replaces a <span class="grammar-noun">noun</span>.<br>
+        - "<span class="grammar-verb">saw</span>": <span class="grammar-verb">verb</span> (action).<br>
+        - "<span class="grammar-article">the</span>": <span class="grammar-article">article</span> introduces a <span class="grammar-noun">noun</span>.<br>
+        - "<span class="grammar-noun">salad/dressing</span>": <span class="grammar-noun">nouns</span> (object).
+      </div>
+    </div>
+  </div>
+  <div class="flashcard" role="button" aria-expanded="false" aria-label="Interactive dad joke flashcard 3" tabindex="0" onclick="toggleCard(this)" onkeydown="handleKeydown(event)" ontouchstart="toggleCard(this)">
+    <div class="flashcard-front active">
+      What do <span class="grammar-pronoun">you</span> <span class="grammar-verb">call</span> <span class="grammar-article">a</span> <span class="grammar-noun">bear</span> with no <span class="grammar-noun">teeth</span>?
+    </div>
+    <div class="flashcard-back">
+      <div class="joke-setup">What do <span class="grammar-pronoun">you</span> <span class="grammar-verb">call</span> <span class="grammar-article">a</span> <span class="grammar-noun">bear</span> with no <span class="grammar-noun">teeth</span>?</div>
+      <div class="punchline"><span class="grammar-article">A</span> gummy <span class="grammar-noun">bear</span>!</div>
+      <hr>
+      <div class="grammar-lesson">
+        <strong>Joke Explanation:</strong> The pun is on "gummy," meaning both toothless and referring to gummy bear candy.<br>
+        <hr>
+        <strong>Grammar Lesson:</strong><br>
+        - "<span class="grammar-article">a</span>": <span class="grammar-article">article</span> introduces a <span class="grammar-noun">noun</span>.<br>
+        - "<span class="grammar-noun">bear</span>": <span class="grammar-noun">noun</span> (object).
+      </div>
+    </div>
+  </div>
+  <div class="flashcard" role="button" aria-expanded="false" aria-label="Interactive dad joke flashcard 4" tabindex="0" onclick="toggleCard(this)" onkeydown="handleKeydown(event)" ontouchstart="toggleCard(this)">
+    <div class="flashcard-front active">
+      Why did <span class="grammar-article">the</span> <span class="grammar-noun">bicycle</span> <span class="grammar-verb">fall</span> over?
+    </div>
+    <div class="flashcard-back">
+      <div class="joke-setup">Why did <span class="grammar-article">the</span> <span class="grammar-noun">bicycle</span> <span class="grammar-verb">fall</span> over?</div>
+      <div class="punchline"><span class="grammar-pronoun">It</span> <span class="grammar-verb">was</span> <span class="grammar-adjective">two-tired</span>!</div>
+      <hr>
+      <div class="grammar-lesson">
+        <strong>Joke Explanation:</strong> The pun is on "tired," meaning both exhausted and having tires.<br>
+        <hr>
+        <strong>Grammar Lesson:</strong><br>
+        - "<span class="grammar-pronoun">it</span>": <span class="grammar-pronoun">pronoun</span> replaces a <span class="grammar-noun">noun</span>.<br>
+        - "<span class="grammar-verb">was</span>": <span class="grammar-verb">verb</span> (state).<br>
+        - "<span class="grammar-adjective">two-tired</span>": <span class="grammar-adjective">adjective</span> describes a <span class="grammar-noun">noun</span>.
+      </div>
+    </div>
+  </div>
+  <div class="flashcard" role="button" aria-expanded="false" aria-label="Interactive dad joke flashcard 5" tabindex="0" onclick="toggleCard(this)" onkeydown="handleKeydown(event)" ontouchstart="toggleCard(this)">
+    <div class="flashcard-front active">
+      How do <span class="grammar-pronoun">you</span> <span class="grammar-verb">organize</span> <span class="grammar-article">a</span> space <span class="grammar-noun">party</span>?
+    </div>
+    <div class="flashcard-back">
+      <div class="joke-setup">How do <span class="grammar-pronoun">you</span> <span class="grammar-verb">organize</span> <span class="grammar-article">a</span> space <span class="grammar-noun">party</span>?</div>
+      <div class="punchline"><span class="grammar-pronoun">You</span> <span class="grammar-verb">plan</span>-<span class="grammar-noun">it</span>!</div>
+      <hr>
+      <div class="grammar-lesson">
+        <strong>Joke Explanation:</strong> The pun is on "planet," meaning both planning and a celestial body.<br>
+        <hr>
+        <strong>Grammar Lesson:</strong><br>
+        - "<span class="grammar-pronoun">you</span>": <span class="grammar-pronoun">pronoun</span> (subject).<br>
+        - "<span class="grammar-verb">plan</span>": <span class="grammar-verb">verb</span> (action).<br>
+        - "<span class="grammar-noun">it</span>": <span class="grammar-noun">noun</span>, part of the pun "planet."
       </div>
     </div>
   </div>
@@ -216,21 +277,60 @@
     <strong>Grammar Key:</strong> <span class="grammar-noun">Nouns</span>, <span class="grammar-verb">Verbs</span>, <span class="grammar-adjective">Adjectives</span>, <span class="grammar-adverb">Adverbs</span>, <span class="grammar-article">Articles</span>, <span class="grammar-preposition">Prepositions</span>, <span class="grammar-conjunction">Conjunctions</span>, <span class="grammar-pronoun">Pronouns</span>
   </div>
   <div class="navigation">
-    <button disabled aria-label="Go to previous flashcard">
-      <img src="https://cdn-icons-png.flaticon.com/512/271/271220.png" alt="Go to previous flashcard" class="nav-icon disabled">
+    <button class="nav-button" id="prev-button" disabled aria-label="Go to previous flashcard" onclick="navigateCard('prev')">
+      <img src="https://cdn-icons-png.flaticon.com/512/271/271220.png" alt="Go to previous flashcard" class="nav-icon">
     </button>
-    <a href="card2.html" aria-label="Go to next flashcard">
+    <button class="nav-button" id="next-button" aria-label="Go to next flashcard" onclick="navigateCard('next')">
       <img src="https://cdn-icons-png.flaticon.com/512/271/271228.png" alt="Go to next flashcard" class="nav-icon">
-    </a>
+    </button>
   </div>
   <script>
+    let currentCardIndex = 0;
+    const cards = document.querySelectorAll('.flashcard');
+    
+    function updateCardDisplay() {
+      cards.forEach((card, index) => {
+        card.classList.toggle('active', index === currentCardIndex);
+        if (index === currentCardIndex) {
+          card.querySelector('.flashcard-front').classList.add('active');
+          card.querySelector('.flashcard-back').classList.remove('active');
+          card.setAttribute('aria-expanded', 'false');
+        }
+      });
+      document.querySelector('.start-button').style.display = 'block';
+      document.querySelector('.continue-button').style.display = 'none';
+      document.querySelector('#prev-button').disabled = currentCardIndex === 0;
+      document.querySelector('#next-button').disabled = currentCardIndex === cards.length - 1;
+      document.querySelector('.nav-icon', '#prev-button').classList.toggle('disabled', currentCardIndex === 0);
+      document.querySelector('.nav-icon', '#next-button').classList.toggle('disabled', currentCardIndex === cards.length - 1);
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      adjustFontSize();
+      const message = document.querySelector('.speech-message');
+      if (message) message.remove();
+    }
+    
+    function navigateCard(direction) {
+      if (direction === 'next' && currentCardIndex < cards.length - 1) {
+        currentCardIndex++;
+      } else if (direction === 'prev' && currentCardIndex > 0) {
+        currentCardIndex--;
+      }
+      updateCardDisplay();
+    }
+    
     function startJoke() {
       if ('speechSynthesis' in window) {
-        const front = document.querySelector('.flashcard-front');
-        const utterance = new SpeechSynthesisUtterance(front.innerText);
+        const front = document.querySelector('.flashcard.active .flashcard-front');
+        const utterance = new SpeechSynthesisUtterance(front.textContent.replace(/<[^>]+>/g, ''));
         utterance.lang = 'en-US';
         utterance.onerror = (event) => {
           console.error('Speech synthesis error:', event.error);
+          const message = document.createElement('div');
+          message.className = 'speech-message';
+          message.textContent = 'Speech synthesis not supported or failed.';
+          document.querySelector('h1').after(message);
         };
         utterance.onend = () => {
           document.querySelector('.continue-button').style.display = 'block';
@@ -238,9 +338,15 @@
         window.speechSynthesis.speak(utterance);
         document.querySelector('.start-button').style.display = 'none';
       } else {
-        console.warn('Speech synthesis not supported in this browser.');
+        const message = document.createElement('div');
+        message.className = 'speech-message';
+        message.textContent = 'Speech synthesis not supported in this browser.';
+        document.querySelector('h1').after(message);
+        document.querySelector('.start-button').style.display = 'none';
+        document.querySelector('.continue-button').style.display = 'block';
       }
     }
+    
     function toggleCard(card) {
       try {
         const front = card.querySelector('.flashcard-front');
@@ -253,7 +359,7 @@
         back.classList.toggle('active');
         card.setAttribute('aria-expanded', back.classList.contains('active'));
         if (back.classList.contains('active') && 'speechSynthesis' in window) {
-          const utterance = new SpeechSynthesisUtterance(punchline.innerText);
+          const utterance = new SpeechSynthesisUtterance(punchline.textContent.replace(/<[^>]+>/g, ''));
           utterance.lang = 'en-US';
           utterance.onerror = (event) => {
             console.error('Speech synthesis error:', event.error);
@@ -264,7 +370,6 @@
           window.speechSynthesis.speak(utterance);
         }
         adjustFontSize();
-        // Remove any speech message after interaction
         const message = document.querySelector('.speech-message');
         if (message) message.remove();
       } catch (error) {
@@ -274,38 +379,48 @@
         card.setAttribute('aria-expanded', 'true');
       }
     }
+    
     function handleKeydown(event) {
       if (event.key === 'Enter' || event.key === ' ') {
         toggleCard(event.currentTarget);
         event.preventDefault();
       }
     }
+    
     function adjustFontSize() {
-      const card = document.querySelector('.flashcard');
-      const back = document.querySelector('.flashcard-back');
+      const card = document.querySelector('.flashcard.active');
+      const back = card.querySelector('.flashcard-back');
       const padding = parseInt(getComputedStyle(card).paddingTop) * 2;
       const availableHeight = card.clientHeight - padding;
       let fontSize = parseFloat(getComputedStyle(back).fontSize);
       let minFontSize = 12;
-      let maxFontSize = 16;
+      let maxFontSize = 18;
       let step = 0.25;
       while (back.scrollHeight > availableHeight && fontSize > minFontSize) {
         fontSize -= step;
         updateFontSizes(back, fontSize);
       }
-      while (back.scrollHeight < availableHeight * 0.9 && fontSize < maxFontSize) {
+      while (back.scrollHeight < availableHeight * 0.95 && fontSize < maxFontSize) {
         fontSize += step;
         updateFontSizes(back, fontSize);
       }
     }
+    
     function updateFontSizes(back, fontSize) {
       back.style.fontSize = `${fontSize}px`;
       back.querySelector('.joke-setup').style.fontSize = `${fontSize * 0.9}px`;
-      back.querySelector('.punchline').style.fontSize = `${fontSize * 1.1}px`;
-      back.querySelector('.grammar-lesson').style.fontSize = `${fontSize * 0.8}px`;
+      back.querySelector('.punchline').style.fontSize = `${fontSize * 1.15}px`;
+      back.querySelector('.grammar-lesson').style.fontSize = `${fontSize * 0.85}px`;
     }
+    
     let resizeTimeout;
-    window.addEventListener('load', adjustFontSize);
+    window.addEventListener('load', () => {
+      updateCardDisplay();
+      if (!('speechSynthesis' in window)) {
+        document.querySelector('.start-button').style.display = 'none';
+        document.querySelector('.continue-button').style.display = 'block';
+      }
+    });
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimeout);
       resizeTimeout = setTimeout(adjustFontSize, 100);
