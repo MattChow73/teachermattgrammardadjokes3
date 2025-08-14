@@ -553,10 +553,13 @@
   <script>
     let currentCardIndex = 0;
     const cards = document.querySelectorAll('.flashcard');
+    const preferredVoices = ['Google UK English Female', 'Google UK English Male', 'Daniel', 'Kate'];
 
     function getBritishVoice() {
       const voices = window.speechSynthesis.getVoices();
-      return voices.find(voice => voice.lang === 'en-GB') || voices.find(voice => voice.lang === 'en-US');
+      return voices.find(voice => preferredVoices.includes(voice.name) && voice.lang === 'en-GB') ||
+             voices.find(voice => voice.lang === 'en-GB') ||
+             voices.find(voice => voice.lang === 'en-US');
     }
 
     function updateCardDisplay() {
@@ -599,12 +602,12 @@
         const utterance = new SpeechSynthesisUtterance(front.textContent.replace(/<[^>]+>/g, ''));
         utterance.lang = 'en-GB';
         const voice = getBritishVoice();
-        if (voice) {
+        if (voice && voice.lang === 'en-GB') {
           utterance.voice = voice;
         } else {
           const message = document.createElement('div');
           message.className = 'speech-message';
-          message.textContent = 'No British voice available, using default voice.';
+          message.textContent = 'No British voice found, using default voice.';
           document.querySelector('h1').after(message);
         }
         utterance.onerror = (event) => {
@@ -644,12 +647,12 @@
           const utterance = new SpeechSynthesisUtterance(punchline.textContent.replace(/<[^>]+>/g, ''));
           utterance.lang = 'en-GB';
           const voice = getBritishVoice();
-          if (voice) {
+          if (voice && voice.lang === 'en-GB') {
             utterance.voice = voice;
           } else {
             const message = document.createElement('div');
             message.className = 'speech-message';
-            message.textContent = 'No British voice available, using default voice.';
+            message.textContent = 'No British voice found, using default voice.';
             document.querySelector('h1').after(message);
           }
           utterance.onerror = (event) => {
